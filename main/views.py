@@ -5,7 +5,7 @@ from .models import Product
 
 # Create your views here.
 
-def home_view(request):
+def product_view(request):
     query_set = Product.objects.all()
     context ={
         "object": query_set 
