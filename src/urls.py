@@ -18,6 +18,7 @@ from django.urls import path
 from main.views import (
     home_view,
     product_edit,
+    product_delete,
     
     )
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view),
     path('home/', home_view),
-    path('product_edit/<int:id>', product_edit),
+    path('edit/<int:id>', product_edit),
+    path('delete/<int:id>/', product_delete),
 
 ]

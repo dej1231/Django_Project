@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from .models import Product
 
@@ -18,12 +19,7 @@ def product_edit(request, id):
     }
     return render(request, "product_edit.html", context)
 
-# def delete_product(request, id):
-#     obj = Product.objects.get(id=id)
-#     if request.method == "POST":
-#         obj.delete()
-#         return redirect('../')
-#     context ={
-#         "object": obj
-#     }
-#     return render(request, "products/product_delete.html", context)
+def product_delete(request, id):
+    obj = Product.objects.get(id=id)
+    obj.delete()
+    return redirect('/')
