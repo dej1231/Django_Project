@@ -1,3 +1,4 @@
+from time import process_time_ns
 from django.shortcuts import render, redirect
 from .forms import ProductForm
 
@@ -6,10 +7,12 @@ from .models import Product
 # Create your views here.
 
 def product_view(request):
-    query_set = Product.objects.all()
+    query_set = Product.objects.all().values()
     context ={
         "object": query_set 
     }
+    # print(query_set)
+    # print(type(context))
     return render(request, "product_view.html", context)
 
 def product_create(request):
@@ -26,7 +29,7 @@ def product_create(request):
 def product_update(request, id=id):
     obj = Product.objects.get(id=id)
     form = ProductForm(request.POST or None, instance=obj)
-    # print(request,'gggggggggggggg')
+    print(obj)
     if form.is_valid():
         form.save()
         return redirect('/')
@@ -45,4 +48,5 @@ def product_get(request,id):
     ctx = {
         'data': obj
     }
-    return request,ctx
+    print(id)
+    return id

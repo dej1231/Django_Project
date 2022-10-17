@@ -134,10 +134,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-
             </div>
-
-
 
             <div>
                 <a href="/create">
@@ -153,48 +150,60 @@
             <button id="myBtn">Open Modal</button>
         </div>
         <div id="myModal" class="modal">
-
             <!-- Modal content -->
-            <div class="modal-content w-fit rounded-md">
-                <span class="close">&times;</span>
+            <div class="modal-content w-fit rounded-md bg-transparent border-none">
                 <div class="flex items-center justify-center mx-auto">
-                    <div class="mx-auto w-fit flex items-center justify-center ">
-                        <form action="." method="POST" class="p-10 bg-white rounded-md drop-shadow-md"> {% csrf_token %}
-                            <div class="mb-5">
-                                <label class="mb-3 block text-base font-medium text-[#07074D]">
-                                    Name
-                                </label>
-                              
-                                <!-- {{form.name}} -->
-                            </div>
-                            <div class="mb-5">
-                                <label class="mb-3 block text-base font-medium text-[#07074D]">
-                                    Description
-                                </label>
-                                <!-- {{form.description}} -->
-                            </div>
-                            <div class="mb-5">
-                                <label class="mb-3 block text-base font-medium text-[#07074D]">
-                                    Quantity
-                                </label>
-                                <!-- {{form.quantity}} -->
-                            </div>
-                            <div class="mb-5">
-                                <label class="mb-3 block text-base font-medium text-[#07074D]">
-                                    Price
-                                </label>
-                                <!-- {{form.price}} -->
-                            </div>
-                            <div class="mb-5">
-                                <label class="mb-3 block text-base font-medium text-[#07074D]">
-                                    Is available :
-                                    <!-- {{form.is_available}} -->
-                                </label>
+                    <div class="mx-auto w-fit flex items-center justify-center">
 
+                        <form action="." method="POST" class="bg-white rounded-md drop-shadow-md"> {% csrf_token %}
+                            <span class="close mr-2">&times;</span>
+                            <div class="p-10">
+                                <div>
+                                    <label class="mb-3 block text-base font-medium text-[#07074D]">
+                                        Name :
+                                    </label>
+                                    <!-- <input id="name"
+                                        class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'> -->
+                                    
+                                </div>
+                                <div class="mb-5">
+                                    <label class="mb-3 block text-base font-medium text-[#07074D]">
+                                        Description
+                                    </label>
+                                    <input id="desc"
+                                        class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'>
+                                    <!-- {{form.description}} -->
+                                </div>
+                                <div class="mb-5">
+                                    <label class="mb-3 block text-base font-medium text-[#07074D]">
+                                        Quantity
+                                    </label>
+                                    <input id="qty"
+                                        class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'>
+                                    <!-- {{form.quantity}} -->
+                                </div>
+                                <div class="mb-5">
+                                    <label class="mb-3 block text-base font-medium text-[#07074D]">
+                                        Price
+                                    </label>
+                                    <input id="price"
+                                        class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'>
+                                    <!-- {{form.price}} -->
+                                </div>
+                                <div class="mb-5 d-flex">
+                                    <label class="mb-3 block text-base font-medium text-[#07074D]">
+                                        Is available :
+                                        <input id="is_avbl"
+                                        class='rounded-md border border-[#e0e0e0] bg-white text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'
+                                        type="checkbox">
+                                        <!-- {{form.is_available}} -->
+                                    </label>
+                                    
+                                </div>
+                                <input
+                                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                                    type="submit" value="Save" />
                             </div>
-                            <input
-                                class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                type="submit" value="Save" />
                         </form>
                     </div>
                 </div>
@@ -205,7 +214,6 @@
     </div>
 </div>
 <script>
-    var g = "dsadasdas"
     // Get the modal
     var modal = document.getElementById("myModal");
 
