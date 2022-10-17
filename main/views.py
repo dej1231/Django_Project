@@ -26,9 +26,7 @@ def product_create(request):
 def product_update(request, id=id):
     obj = Product.objects.get(id=id)
     form = ProductForm(request.POST or None, instance=obj)
-
     # print(request,'gggggggggggggg')
-    
     if form.is_valid():
         form.save()
         return redirect('/')
@@ -41,3 +39,10 @@ def product_delete(request, id):
     obj = Product.objects.get(id=id)
     obj.delete()
     return redirect('/')
+
+def product_get(request,id):
+    obj = Product.objects.get(id=id)
+    ctx = {
+        'data': obj
+    }
+    return request,ctx
