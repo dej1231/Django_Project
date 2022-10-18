@@ -128,7 +128,8 @@
                             </td>
                             <td class="text-center px-5 py-5 border-b border-gray-200 bg-white text-sm ">
                                 <!-- <a href="/update/{{x.id}}"> edit </a>|<a href="/delete/{{x.id}}"> del </a> -->
-                                <a class="cursor-pointer" id="{{x.id}}" onclick="openEditModal(id)">EDIT</a>
+                                <a class="cursor-pointer" id="{{x.id}}" onclick="openEditModal(id)">EDIT</a> |
+                                <a class="cursor-pointer" id="{{x.id}}" onclick="openDelModal(id)">DEL</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -137,40 +138,37 @@
             </div>
 
             <div>
-                <a href="/create">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                
+                    <button onclick="openAddModal()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         style="float:right;">
                         add
                     </button>
-                </a>
+                
             </div>
         </div>
         <!-- modal -->
-        <div>
-            <button id="myBtn">Open Modal</button>
-        </div>
         <div id="myModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content w-fit rounded-md bg-transparent border-none">
                 <div class="flex items-center justify-center mx-auto">
                     <div class="mx-auto w-fit flex items-center justify-center">
-
-                        <form action="." method="POST" class="bg-white rounded-md drop-shadow-md"> {% csrf_token %}
+                        <form action="/" method="POST" id="data_form"
+                            class="bg-white rounded-md drop-shadow-md"> {% csrf_token %}
                             <span class="close mr-2">&times;</span>
                             <div class="p-10">
                                 <div>
                                     <label class="mb-3 block text-base font-medium text-[#07074D]">
                                         Name :
                                     </label>
-                                    <!-- <input id="name"
-                                        class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'> -->
-                                    
+                                    <input name="name" id="name" required
+                                        class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'>
+
                                 </div>
                                 <div class="mb-5">
                                     <label class="mb-3 block text-base font-medium text-[#07074D]">
                                         Description
                                     </label>
-                                    <input id="desc"
+                                    <input name="desc" required
                                         class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'>
                                     <!-- {{form.description}} -->
                                 </div>
@@ -178,7 +176,7 @@
                                     <label class="mb-3 block text-base font-medium text-[#07074D]">
                                         Quantity
                                     </label>
-                                    <input id="qty"
+                                    <input name="qty" type="number" required
                                         class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'>
                                     <!-- {{form.quantity}} -->
                                 </div>
@@ -186,19 +184,18 @@
                                     <label class="mb-3 block text-base font-medium text-[#07074D]">
                                         Price
                                     </label>
-                                    <input id="price"
+                                    <input name="price" type="number" required
                                         class='w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'>
                                     <!-- {{form.price}} -->
                                 </div>
                                 <div class="mb-5 d-flex">
                                     <label class="mb-3 block text-base font-medium text-[#07074D]">
                                         Is available :
-                                        <input id="is_avbl"
-                                        class='rounded-md border border-[#e0e0e0] bg-white text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'
-                                        type="checkbox">
+                                        <input name="is_avbl"
+                                            class='rounded-md border border-[#e0e0e0] bg-white text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md'
+                                            type="checkbox">
                                         <!-- {{form.is_available}} -->
                                     </label>
-                                    
                                 </div>
                                 <input
                                     class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
@@ -211,24 +208,63 @@
 
         </div>
         <!-- modal -->
+        <!-- delete modal -->
+        <div id="delModal"
+            class="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0 hidden">
+
+            <div class="bg-white rounded-md text-center">
+                <span onclick="closeDelModal()" class="close mr-2">&times;</span>
+                <div class="px-16 py-14">
+                    <h1 id="deltxt" class="text-xl mb-4 font-bold text-slate-500">คุณยืนยันที่จะลบหรือไม่?</h1>
+                    <button onclick="closeDelModal()"
+                        class="bg-red-500 px-4 py-2 rounded-md text-md text-white">ยกเลิก</button>
+                    <button onclick="delData()"
+                        class="bg-indigo-500 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">ตกลง</button>
+                </div>
+            </div>
+        </div>
+        <!-- delete modal -->
     </div>
 </div>
 <script>
     // Get the modal
+    let tempDel
     var modal = document.getElementById("myModal");
-
+    var delModal = document.getElementById("delModal");
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks the button, open the modal 
-    btn.onclick = function () {
-
+    // When the user clicks the button, open the modal
+    function closeDelModal() {
+        tempDel = null
+        delModal.style.display = "none";
+    }
+    function openDelModal(id) {
+        console.log(id);
+        tempDel = id;
+        // response = requests.post(id)
+        // console.log(response)
+        delModal.style.display = "flex";
+    }
+    function delData() {
+        location.href = `/delete/${tempDel}`;
     }
     function openEditModal(id) {
-        console.log(id)
+        values = document.getElementById('name')
+        console.log(values);
+        // values.value = '{{object.0}}'
+        form = document.getElementById('data_form')
+        form.action = `/update/${id}/`;
+        // response = requests.post(id)
+        // console.log(response)
+        modal.style.display = "block";
+    }
+    function openAddModal() {
+        form = document.getElementById('data_form')
+        form.action = `create/`;
         // response = requests.post(id)
         // console.log(response)
         modal.style.display = "block";

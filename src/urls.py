@@ -21,6 +21,7 @@ from main.views import (
     product_update,
     product_delete,
     product_get,
+    product_mockup
     )
 
 urlpatterns = [
@@ -31,5 +32,5 @@ urlpatterns = [
     path('get/<int:id>/', product_get), 
     path('update/<int:id>/', product_update), 
     path('delete/<int:id>/', product_delete),
-
+    path('mockup/',product_mockup)
 ]
