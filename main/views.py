@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import ProductForm
-
 from .models import Product
+from django.http import HttpResponse, HttpResponseRedirect
+from django.conf import settings
+from django.core.mail import send_mail
+
 
 # Create your views here.
 
@@ -87,3 +90,21 @@ def product_mockup(request):
     # print(query_set)
     # print(type(context))
     return render(request, "product_mock.html")
+
+def send_email(request):
+    subject = request.POST["subject"]
+    message = request.POST["message"]
+    from_email = "kmutnbcourtreservation@gmail.com"
+    toEmail = request.POST["email"]
+    recipient_list = toEmail
+    if subject and message and from_email:
+        try:
+            send_mail(subject, message, from_email, [recipient_list] )
+        except:
+            print('error')
+        return HttpResponseRedirect('/')
+    else:
+        # In reality we'd use a form class
+        # to get proper validation errors.
+        return HttpResponse('Make sure all fields are entered and valid.')
+    
