@@ -82,29 +82,29 @@ def product_get(request,id):
     print(id)
     return id
 
-def product_mockup(request):
+def product_sendEmail(request):
     # query_set = Product.objects.all().values()
     # context ={
     #     "object": query_set 
     # }
     # print(query_set)
     # print(type(context))
-    return render(request, "product_mock.html")
+    return render(request, "product_sendEmail.html")
 
 def send_email(request):
     subject = request.POST["subject"]
     message = request.POST["message"]
     from_email = "kmutnbcourtreservation@gmail.com"
     toEmail = request.POST["email"]
-    recipient_list = toEmail
+    listEmail = list(toEmail.split(','))
+    recipient_list = listEmail
+    print(recipient_list)
     if subject and message and from_email:
         try:
-            send_mail(subject, message, from_email, [recipient_list] )
+            send_mail(subject, message, from_email, recipient_list )
         except:
             print('error')
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/sendEmail')
     else:
-        # In reality we'd use a form class
-        # to get proper validation errors.
         return HttpResponse('Make sure all fields are entered and valid.')
     

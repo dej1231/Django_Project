@@ -1,5 +1,10 @@
 {% extends 'components/base.html' %}
 {% block content %}
+<head>
+    <title>
+        Send E-mail
+    </title>
+</head>
 <form action="/send_email/" method="POST">
     {% csrf_token %}
     <div class="">

@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main.views import (
+    product_sendEmail,
     product_view,
     product_create,
     product_update,
     product_delete,
     product_get,
-    product_mockup,
+    product_sendEmail,
     send_email
     )
 
@@ -33,6 +34,6 @@ urlpatterns = [
     path('get/<int:id>/', product_get), 
     path('update/<int:id>/', product_update), 
     path('delete/<int:id>/', product_delete),
-    path('mockup/',product_mockup),
+    path('sendEmail/',product_sendEmail),
     path('send_email/',send_email)
 ]
